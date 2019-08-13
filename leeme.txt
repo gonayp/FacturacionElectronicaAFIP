@@ -1,0 +1,49 @@
+En el directorio c:\gpp\config.xml escribir los datos de configuracion para la BD y para afip con este formato:
+<Table>
+<BD>
+<ApplicationName>Connection</ApplicationName>
+<Host>localhost</Host>
+<Port>5433</Port>
+<Username>admin</Username>
+<Password>password</Password>
+<Database>bd</Database>
+</BD>
+<AFIP>
+<Clave>clave</Clave>
+<Servicio>wsfe</Servicio>
+<Certificado>C:\\afip\\certificado.pfx</Certificado>
+<Url_wsaa_test>https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL</Url_wsaa_test>
+<Url_wsaa>https://wsaa.afip.gov.ar/ws/services/LoginCms?wsdl</Url_wsaa>
+<Url_wsfe_test>https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL</Url_wsfe_test>
+<Url_wsfe>https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL</Url_wsfe>
+</AFIP>
+<OTROS>
+<Cuit>num_cuit</Cuit>
+<Log>C:\\afip\\AFIP_Log.txt</Log>
+<Testing>1</Testing>
+</OTROS>
+
+En la base de datos (postgresql) "db" necesitamos dos tablas:
+-afip_login (afip_token: text, afip_sing: text, afip_generacion: timestamp, afip_expiration: timstamp)
+-afip_comprobante 
+(id:int,
+ comp_pv: int,
+ comp_codigo: int,
+ comp_numero: int,
+ comp_fecha: timestamp,
+ comp_cae: text,
+ comp_estado: int,
+ comp_importe: numeric,
+ comp_mensaje_afip: text,
+ comp_mensaje_error:text,
+ consulta_afip;text,
+ comp_doc:text,
+ comp_iva:numeric,
+ comp_total:numeric,
+ comp_mensaje_obs:text,
+ cae_vencimiento:timestamp,
+ concepto: int,
+ tipo_doc: int,
+ comp_moneda:text,
+ tipo_iva:int
+)
