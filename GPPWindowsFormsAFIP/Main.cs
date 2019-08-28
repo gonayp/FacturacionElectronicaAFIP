@@ -87,8 +87,8 @@ namespace GPPWindowsFormsAFIP
             connection = MetodosBD.ConnectRemote(ApplicationName, Host, Port, Username, Password, Database, Pooling);//Conexion con BD
 
             MetodosGenerales.leerLoginAnteriores();//Leer si existe algun login anteiror
-            //if(EXPIRATION <= DateTime.Now)
-                //cargarDatosAfip();
+            if(EXPIRATION <= DateTime.Now)
+                cargarDatosAfip();
 
             //Linea en segundo plano para hacer facturacion y login si fuese necesario
             thread = new Thread(backgroundWork);
@@ -136,9 +136,10 @@ namespace GPPWindowsFormsAFIP
                 authRequest.Token = TOKEN;
 
                 AFIP.TEST.WSFE.Service service = new AFIP.TEST.WSFE.Service();
-                service.Url = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL";// URL;
-                //Produccion
-                // "https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL"
+                if (Main.Testing == 1)
+                    service.Url = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL";// URL;
+                else //Produccion
+                    service.Url = "https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL";
                 service.ClientCertificates.Add(certificado);
 
                 ptos_venta_cm.DisplayMember = "Nro";

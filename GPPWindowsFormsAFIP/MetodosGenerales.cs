@@ -85,13 +85,20 @@ namespace GPPWindowsFormsAFIP
                 // data adapter making request from our connection
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, connection);
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, connection);
-
+                
                 using (var reader = cmd.ExecuteReader())
                 {
-                    reader.Read();
-                    Main.TOKEN = reader.GetString(reader.GetOrdinal("afip_token"));
-                    Main.SING = reader.GetString(reader.GetOrdinal("afip_sing"));
-                    Main.EXPIRATION = reader.GetDateTime(reader.GetOrdinal("afip_expiration"));
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            Main.TOKEN = reader.GetString(reader.GetOrdinal("afip_token"));
+                            Main.SING = reader.GetString(reader.GetOrdinal("afip_sing"));
+                            Main.EXPIRATION = reader.GetDateTime(reader.GetOrdinal("afip_expiration"));
+                        }
+                    else
+                    {
+                        Main.EXPIRATION = Convert.ToDateTime("01/01/1900");
+                    }
                     //var i = 0;
                     //while (reader.Read())
                     //{
