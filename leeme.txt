@@ -47,3 +47,7 @@ En la base de datos (postgresql) "db" necesitamos dos tablas:
  comp_moneda:text,
  tipo_iva:int
 )
+
+
+En su momento saque la informacion de esta web:
+https://exgetmessageaux.blogspot.com/2018/02/obtener-certificado-de-afip-para.html 
